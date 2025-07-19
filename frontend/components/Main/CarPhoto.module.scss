@@ -1,0 +1,49 @@
+.carPhoto {
+  position: relative;
+  width: 800px; 
+  height: 300px; 
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.carImg {
+  width: 100%;
+  height: auto;
+  display: block;
+  z-index: 1;
+}
+
+.wheelsRow {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-top: -40px;
+}
+
+.wheel {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+}
+
+.leftWheel {
+  left: 150px;
+  bottom: 60px;
+
+  img {
+    transform: scale(1.55);
+  }
+}
+
+.rightWheel {
+  right: 147px;
+  bottom: 65px;
+
+  img { 
+    transform: scale(1.6);
+  }
+} 

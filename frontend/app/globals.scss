@@ -1,0 +1,40 @@
+@font-face {
+  font-family: 'Fixel Variable';
+  src: url('/fonts/FixelVariable.ttf') format('truetype');
+  font-weight: 100 900;
+  font-display: swap;
+  font-style: normal;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+:root {
+  --bg: #F1F1F1;
+  --text: #232323;
+  --button-bg: #232323;
+  --button-text: #f1f1f1;
+}
+
+[data-theme="dark"] {
+  --bg: #232323;
+  --text: #f1f1f1;
+  --button-bg: #f1f1f1;
+  --button-text: #232323;
+}
+
+body {
+  font-family: 'Fixel Variable', Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  transition: all 0.3s;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}

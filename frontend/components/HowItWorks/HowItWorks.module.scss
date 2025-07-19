@@ -1,0 +1,61 @@
+.howItWorks {
+  position: relative;
+  width: 100%;
+  height: 800px;
+  background: #232323;
+  color: #fff;
+  padding: 100px 0;
+  z-index: 1;
+  text-align: center;
+  transition: all 0.3s;
+}
+
+.howItWorksStripeTop,
+.howItWorksStripeBottom {
+  position: absolute;
+  left: 0;
+  width: 100vw;
+  height: 100px;
+  background: #FF8311;
+  z-index: 2;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  pointer-events: none;
+}
+.howItWorksStripeTop {
+  top: -50px;
+}
+.howItWorksStripeBottom {
+  bottom: -50px;
+}
+
+.howItWorksInner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+.howItWorksContent {
+  display: flex;
+  flex-direction: row;
+  gap: 32px;
+  align-items: stretch;
+  justify-content: space-between;
+  z-index: 1;
+  position: relative;
+}
+.howItWorksLeft {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+  font-size: 20px;
+}
+.howItWorksRight {
+  flex: 1 1 0;
+  background: #1ecb4f;
+  min-height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

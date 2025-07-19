@@ -1,13 +1,12 @@
-import "./globals.css";
+import "./globals.scss";
+import { ThemeProvider } from "../context/ThemeContext";
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="uk">
-      <body>{children}</body>
+      <body>
+        <ThemeProvider>{children}</ThemeProvider>
+      </body>
     </html>
   );
 }
