@@ -1,0 +1,143 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             String                @id @default(uuid())
+  email          String                @unique
+  name           String?
+  profile        UserProfile?
+  searches       UserSearchFilter[]
+  notifications  NotificationQueue[]
+}
+
+model UserProfile {
+  id       Int     @id @default(autoincrement())
+  user_id  String  @unique
+  phone    String?
+  telegram String?
+  avatar   String?
+
+  user     User    @relation(fields: [user_id], references: [id])
+}
+
+model Listing {
+  id              Int       @id @default(autoincrement())
+  link            String    @unique
+  ad_name         String
+  brand_id        Int
+  model_id        Int
+  year            Int
+  price           Int
+  previous_price  Int?
+  price_changed_at DateTime?
+  mileage         Int
+  power           Int
+  type_id         Int
+  gearbox_id      Int
+  fuel_id         Int
+  source_site_id  Int
+  photo_url       String
+  parsed_at       DateTime  @default(now())
+  archived        Boolean   @default(false)
+
+  brand           CarBrand     @relation(fields: [brand_id], references: [id])
+  model           CarModel     @relation(fields: [model_id], references: [id])
+  type            CarType      @relation(fields: [type_id], references: [id])
+  gearbox         GearboxType  @relation(fields: [gearbox_id], references: [id])
+  fuel            FuelType     @relation(fields: [fuel_id], references: [id])
+  source_site     SourceSite   @relation(fields: [source_site_id], references: [id])
+
+  notifications   NotificationQueue[]
+}
+
+model UserSearchFilter {
+  id           Int       @id @default(autoincrement())
+  user_id      String
+  brand_id     Int?
+  model_id     Int?
+  min_price    Float?
+  max_price    Float?
+  min_mileage  Int?
+  max_mileage  Int?
+  min_year     Int?
+  max_year     Int?
+  type_id      Int?
+  gearbox_id   Int?
+  fuel_id      Int?
+  min_power    Float?
+  max_power    Float?
+  telegram     Boolean   @default(true)
+
+  user         User      @relation(fields: [user_id], references: [id])
+  brand        CarBrand? @relation(fields: [brand_id], references: [id])
+  model        CarModel? @relation(fields: [model_id], references: [id])
+  type         CarType?  @relation(fields: [type_id], references: [id])
+  gearbox      GearboxType? @relation(fields: [gearbox_id], references: [id])
+  fuel         FuelType? @relation(fields: [fuel_id], references: [id])
+}
+
+model NotificationQueue {
+  id         Int       @id @default(autoincrement())
+  user_id    String
+  listing_id Int
+  type       String    // "new" | "price_drop"
+  created_at DateTime  @default(now())
+  sent       Boolean   @default(false)
+
+  user       User      @relation(fields: [user_id], references: [id])
+  listing    Listing   @relation(fields: [listing_id], references: [id])
+
+  @@unique([user_id, listing_id, type])
+}
+
+model CarBrand {
+  id     Int         @id @default(autoincrement())
+  name   String
+  models CarModel[]
+  listings Listing[]
+  userSearchFilters UserSearchFilter[] 
+}
+
+model CarModel {
+  id        Int       @id @default(autoincrement())
+  brand_id  Int
+  name      String
+
+  brand     CarBrand  @relation(fields: [brand_id], references: [id])
+  listings  Listing[]
+  userSearchFilters UserSearchFilter[] 
+}
+
+model CarType {
+  id       Int        @id @default(autoincrement())
+  name     String
+  listings Listing[]
+  userSearchFilters UserSearchFilter[] 
+}
+
+model FuelType {
+  id       Int        @id @default(autoincrement())
+  name     String
+  listings Listing[]
+  userSearchFilters UserSearchFilter[] 
+}
+
+model GearboxType {
+  id       Int        @id @default(autoincrement())
+  name     String
+  listings Listing[]
+  userSearchFilters UserSearchFilter[]
+}
+
+model SourceSite {
+  id        Int        @id @default(autoincrement())
+  name      String
+  photo_url String
+  listings  Listing[]
+}
