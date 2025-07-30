@@ -7,137 +7,138 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id             String                @id @default(uuid())
-  email          String                @unique
-  name           String?
-  profile        UserProfile?
-  searches       UserSearchFilter[]
-  notifications  NotificationQueue[]
+model userFavoriteListing {
+  id        Int      @id @default(autoincrement())
+  userId    String?  @db.VarChar(72)
+  listingId Int?
+  user      user?    @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "userFavoriteListing_ibfk_1")
+  listing   listing? @relation(fields: [listingId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "userFavoriteListing_ibfk_2")
+
+  @@index([listingId], map: "listingId")
+  @@index([userId], map: "userId")
 }
 
-model UserProfile {
-  id       Int     @id @default(autoincrement())
-  user_id  String  @unique
-  phone    String?
-  telegram String?
-  avatar   String?
-
-  user     User    @relation(fields: [user_id], references: [id])
+model bodyType {
+  id               Int                @id @default(autoincrement())
+  name             String?            @db.VarChar(255)
+  listing          listing[]
+  userSearchFilter userSearchFilter[]
 }
 
-model Listing {
-  id              Int       @id @default(autoincrement())
-  link            String    @unique
-  ad_name         String
-  brand_id        Int
-  model_id        Int
-  year            Int
-  price           Int
-  previous_price  Int?
-  price_changed_at DateTime?
-  mileage         Int
-  power           Int
-  type_id         Int
-  gearbox_id      Int
-  fuel_id         Int
-  source_site_id  Int
-  photo_url       String
-  parsed_at       DateTime  @default(now())
-  archived        Boolean   @default(false)
-
-  brand           CarBrand     @relation(fields: [brand_id], references: [id])
-  model           CarModel     @relation(fields: [model_id], references: [id])
-  type            CarType      @relation(fields: [type_id], references: [id])
-  gearbox         GearboxType  @relation(fields: [gearbox_id], references: [id])
-  fuel            FuelType     @relation(fields: [fuel_id], references: [id])
-  source_site     SourceSite   @relation(fields: [source_site_id], references: [id])
-
-  notifications   NotificationQueue[]
+model carBrand {
+  id               Int                @id @default(autoincrement())
+  name             String?            @db.VarChar(255)
+  carModel         carModel[]
+  listing          listing[]
+  userSearchFilter userSearchFilter[]
 }
 
-model UserSearchFilter {
-  id           Int       @id @default(autoincrement())
-  user_id      String
-  brand_id     Int?
-  model_id     Int?
-  min_price    Float?
-  max_price    Float?
-  min_mileage  Int?
-  max_mileage  Int?
-  min_year     Int?
-  max_year     Int?
-  type_id      Int?
-  gearbox_id   Int?
-  fuel_id      Int?
-  min_power    Float?
-  max_power    Float?
-  telegram     Boolean   @default(true)
+model carModel {
+  id               Int                @id @default(autoincrement())
+  brandId          Int?
+  name             String?            @db.VarChar(255)
+  carBrand         carBrand?          @relation(fields: [brandId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "carModel_ibfk_1")
+  listing          listing[]
+  userSearchFilter userSearchFilter[]
 
-  user         User      @relation(fields: [user_id], references: [id])
-  brand        CarBrand? @relation(fields: [brand_id], references: [id])
-  model        CarModel? @relation(fields: [model_id], references: [id])
-  type         CarType?  @relation(fields: [type_id], references: [id])
-  gearbox      GearboxType? @relation(fields: [gearbox_id], references: [id])
-  fuel         FuelType? @relation(fields: [fuel_id], references: [id])
+  @@index([brandId], map: "brandId")
 }
 
-model NotificationQueue {
-  id         Int       @id @default(autoincrement())
-  user_id    String
-  listing_id Int
-  type       String    // "new" | "price_drop"
-  created_at DateTime  @default(now())
-  sent       Boolean   @default(false)
-
-  user       User      @relation(fields: [user_id], references: [id])
-  listing    Listing   @relation(fields: [listing_id], references: [id])
-
-  @@unique([user_id, listing_id, type])
+model fuelType {
+  id               Int                @id @default(autoincrement())
+  name             String?            @db.VarChar(255)
+  listing          listing[]
+  userSearchFilter userSearchFilter[]
 }
 
-model CarBrand {
-  id     Int         @id @default(autoincrement())
-  name   String
-  models CarModel[]
-  listings Listing[]
-  userSearchFilters UserSearchFilter[] 
+model gearboxType {
+  id               Int                @id @default(autoincrement())
+  name             String?            @db.VarChar(255)
+  listing          listing[]
+  userSearchFilter userSearchFilter[]
 }
 
-model CarModel {
-  id        Int       @id @default(autoincrement())
-  brand_id  Int
-  name      String
+model listing {
+  id            Int                   @id @default(autoincrement())
+  externalId    String?               @unique(map: "externalId") @db.VarChar(255)
+  title         String?               @db.VarChar(255)
+  brandId       Int?
+  modelId       Int?
+  year          Int?
+  price         Int?
+  mileage       Int?
+  photoUrl      String?               @db.Text
+  bodyTypeId    Int?
+  gearboxTypeId Int?
+  fuelTypeId    Int?
+  power         Int?
+  sourceId      Int?
+  externalUrl   String?               @db.Text
+  parsedAt      DateTime?             @db.Timestamp(0)
+  carBrand      carBrand?             @relation(fields: [brandId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "listing_ibfk_1")
+  carModel      carModel?             @relation(fields: [modelId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "listing_ibfk_2")
+  bodyType      bodyType?             @relation(fields: [bodyTypeId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "listing_ibfk_3")
+  gearboxType   gearboxType?          @relation(fields: [gearboxTypeId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "listing_ibfk_4")
+  fuelType      fuelType?             @relation(fields: [fuelTypeId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "listing_ibfk_5")
+  sourceSite    sourceSite?           @relation(fields: [sourceId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "listing_ibfk_6")
+  favoritedBy   userFavoriteListing[]
 
-  brand     CarBrand  @relation(fields: [brand_id], references: [id])
-  listings  Listing[]
-  userSearchFilters UserSearchFilter[] 
+  @@index([bodyTypeId], map: "bodyTypeId")
+  @@index([brandId], map: "brandId")
+  @@index([fuelTypeId], map: "fuelTypeId")
+  @@index([gearboxTypeId], map: "gearboxTypeId")
+  @@index([modelId], map: "modelId")
+  @@index([sourceId], map: "sourceId")
 }
 
-model CarType {
-  id       Int        @id @default(autoincrement())
-  name     String
-  listings Listing[]
-  userSearchFilters UserSearchFilter[] 
+model sourceSite {
+  id      Int       @id @default(autoincrement())
+  name    String?   @db.VarChar(255)
+  logoUrl String?   @db.Text
+  listing listing[]
 }
 
-model FuelType {
-  id       Int        @id @default(autoincrement())
-  name     String
-  listings Listing[]
-  userSearchFilters UserSearchFilter[] 
+model user {
+  id               String                @id @db.VarChar(72)
+  username         String?               @db.VarChar(255)
+  email            String?               @unique(map: "email") @db.VarChar(255)
+  phone            String?               @db.VarChar(20)
+  telegramUsername String?               @db.VarChar(255)
+  avatarUrl        String?               @db.VarChar(255)
+  registrationDate DateTime?             @db.Timestamp(0)
+  lastActivity     DateTime?             @db.Timestamp(0)
+  favoriteListings userFavoriteListing[]
+  userSearchFilter userSearchFilter[]
 }
 
-model GearboxType {
-  id       Int        @id @default(autoincrement())
-  name     String
-  listings Listing[]
-  userSearchFilters UserSearchFilter[]
-}
+model userSearchFilter {
+  id             Int          @id @default(autoincrement())
+  userId         String?      @db.VarChar(72)
+  brandId        Int?
+  modelId        Int?
+  maxPrice       Float?       @db.Float
+  minPrice       Float?       @db.Float
+  maxMileage     Int?
+  minMileage     Int?
+  minYear        Int?
+  maxYear        Int?
+  bodyTypeId     Int?
+  gearboxTypeId  Int?
+  maxPower       Float?       @db.Float
+  minPower       Float?       @db.Float
+  fuelTypeId     Int?
+  sendToTelegram Boolean?
+  user           user?        @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "userSearchFilter_ibfk_1")
+  carBrand       carBrand?    @relation(fields: [brandId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "userSearchFilter_ibfk_2")
+  carModel       carModel?    @relation(fields: [modelId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "userSearchFilter_ibfk_3")
+  bodyType       bodyType?    @relation(fields: [bodyTypeId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "userSearchFilter_ibfk_4")
+  gearboxType    gearboxType? @relation(fields: [gearboxTypeId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "userSearchFilter_ibfk_5")
+  fuelType       fuelType?    @relation(fields: [fuelTypeId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "userSearchFilter_ibfk_6")
 
-model SourceSite {
-  id        Int        @id @default(autoincrement())
-  name      String
-  photo_url String
-  listings  Listing[]
+  @@index([bodyTypeId], map: "bodyTypeId")
+  @@index([brandId], map: "brandId")
+  @@index([fuelTypeId], map: "fuelTypeId")
+  @@index([gearboxTypeId], map: "gearboxTypeId")
+  @@index([modelId], map: "modelId")
+  @@index([userId], map: "userId")
 }

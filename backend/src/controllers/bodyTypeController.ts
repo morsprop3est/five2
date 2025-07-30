@@ -3,7 +3,7 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-export const getAllFuelTypes = async (req: Request, res: Response) => {
+export const getAllBodyTypes = async (req: Request, res: Response) => {
   try {
     const { search } = req.query;
 
@@ -11,37 +11,37 @@ export const getAllFuelTypes = async (req: Request, res: Response) => {
       name: { contains: String(search) }
     } : {};
 
-    const fuelTypes = await (prisma as any).fuelType.findMany({
+    const bodyTypes = await (prisma as any).bodyType.findMany({
       where,
       orderBy: { name: 'asc' }
     });
 
-    res.json(fuelTypes);
+    res.json(bodyTypes);
   } catch (error) {
-    console.error('Error in getAllFuelTypes:', error);
+    console.error('Error in getAllBodyTypes:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 };
 
-export const getFuelTypeById = async (req: Request, res: Response) => {
+export const getBodyTypeById = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const fuelType = await (prisma as any).fuelType.findUnique({
+    const bodyType = await (prisma as any).bodyType.findUnique({
       where: { id: Number(id) }
     });
 
-    if (!fuelType) {
-      return res.status(404).json({ error: 'Fuel type not found' });
+    if (!bodyType) {
+      return res.status(404).json({ error: 'Body type not found' });
     }
 
-    res.json(fuelType);
+    res.json(bodyType);
   } catch (error) {
-    console.error('Error in getFuelTypeById:', error);
+    console.error('Error in getBodyTypeById:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 };
 
-export const createFuelType = async (req: Request, res: Response) => {
+export const createBodyType = async (req: Request, res: Response) => {
   try {
     const { name } = req.body;
 
@@ -49,65 +49,65 @@ export const createFuelType = async (req: Request, res: Response) => {
       return res.status(400).json({ error: 'Name is required' });
     }
 
-    const fuelType = await (prisma as any).fuelType.create({
+    const bodyType = await (prisma as any).bodyType.create({
       data: { name }
     });
 
-    res.status(201).json(fuelType);
+    res.status(201).json(bodyType);
   } catch (error) {
-    console.error('Error in createFuelType:', error);
+    console.error('Error in createBodyType:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 };
 
-export const updateFuelType = async (req: Request, res: Response) => {
+export const updateBodyType = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const { name } = req.body;
 
-    const fuelType = await (prisma as any).fuelType.update({
+    const bodyType = await (prisma as any).bodyType.update({
       where: { id: Number(id) },
       data: { name }
     });
 
-    res.json(fuelType);
+    res.json(bodyType);
   } catch (error: any) {
-    console.error('Error in updateFuelType:', error);
+    console.error('Error in updateBodyType:', error);
     if (error.code === 'P2025') {
-      return res.status(404).json({ error: 'Fuel type not found' });
+      return res.status(404).json({ error: 'Body type not found' });
     }
     res.status(500).json({ error: 'Internal server error' });
   }
 };
 
-export const deleteFuelType = async (req: Request, res: Response) => {
+export const deleteBodyType = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    await (prisma as any).fuelType.delete({
+    await (prisma as any).bodyType.delete({
       where: { id: Number(id) }
     });
 
     res.status(204).send();
   } catch (error: any) {
-    console.error('Error in deleteFuelType:', error);
+    console.error('Error in deleteBodyType:', error);
     if (error.code === 'P2025') {
-      return res.status(404).json({ error: 'Fuel type not found' });
+      return res.status(404).json({ error: 'Body type not found' });
     }
     res.status(500).json({ error: 'Internal server error' });
   }
 };
 
-export const getFuelTypeWithListings = async (req: Request, res: Response) => {
+export const getBodyTypeWithListings = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const fuelType = await (prisma as any).fuelType.findUnique({
+    const bodyType = await (prisma as any).bodyType.findUnique({
       where: { id: Number(id) },
       include: {
         listing: {
           include: {
             carBrand: true,
             carModel: true,
-            bodyType: true,
+            fuelType: true,
             gearboxType: true,
             sourceSite: true
           }
@@ -115,13 +115,13 @@ export const getFuelTypeWithListings = async (req: Request, res: Response) => {
       }
     });
 
-    if (!fuelType) {
-      return res.status(404).json({ error: 'Fuel type not found' });
+    if (!bodyType) {
+      return res.status(404).json({ error: 'Body type not found' });
     }
 
-    res.json(fuelType);
+    res.json(bodyType);
   } catch (error) {
-    console.error('Error in getFuelTypeWithListings:', error);
+    console.error('Error in getBodyTypeWithListings:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 }; 

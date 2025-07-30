@@ -1,12 +1,12 @@
 'use client';
 
 import styles from "./Main.module.scss";
-import Image from "next/image";
-import GoogleIcon from "../../public/icons/common/google.svg";
 import CarPhoto from "./CarPhoto";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import GoogleAuthButton from "../GoogleAuthButton/GoogleAuthButton";
+import GitHubAuthButton from "../GitHubAuthButton/GitHubAuthButton";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -50,12 +50,14 @@ export default function Main() {
         </span>
       </h1>
       <p className={styles.text}>Наш сервіс надає вам можливість зручного пошуку автомобілів на різних європейських веб-сайтах продажу автомобілів. Ми спростимо процес пошуку доступних автомобілів, щоб ви могли знайти те, що вам потрібно.</p>
-      <button className={styles.googleBtn}>
-      <span className={styles.icon}>
-        <Image src="/icons/common/google.svg" alt="Google" width={24} height={24} />
-      </span>
-        <span>Login via Google</span>
-      </button>
+      <div className={styles.authButtons}>
+        <GitHubAuthButton className={styles.githubBtn}>
+          Увійти через GitHub
+        </GitHubAuthButton>
+        <GoogleAuthButton className={styles.googleBtn}>
+          Увійти через Google
+        </GoogleAuthButton>
+      </div>
       <div className={styles.photoWrapper}>
         <CarPhoto />
       </div>
