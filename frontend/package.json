@@ -15,7 +15,8 @@
     "next-intl": "^4.3.4",
     "react": "19.1.0",
     "react-dom": "19.1.0",
-    "sass": "^1.89.2"
+    "sass": "^1.89.2",
+    "swiper": "^11.2.10"
   },
   "devDependencies": {
     "typescript": "^5",

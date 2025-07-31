@@ -1,0 +1,189 @@
+.contactUs {
+  padding: 80px 0;
+  background: #353535;
+  color: #F1F1F1;
+  border-top: 1px solid #F1F1F1;
+  width: 100%;
+}
+
+.contactUsHeader {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.contactUsHeader h2 {
+  font-size: 48px;
+  font-weight: 700;
+  margin: 0;
+  color: #F1F1F1;
+}
+
+.contactUsContent {
+  display: flex;
+  gap: 60px;
+  align-items: flex-start;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.contactUsLeft {
+  flex: 1;
+  padding-top: 20px;
+}
+
+.contactUsLeft p {
+  font-size: 18px;
+  line-height: 1.6;
+  color: #F1F1F1;
+  margin: 0;
+}
+
+.highlight {
+  color: #FF8311;
+  font-weight: 600;
+}
+
+.contactUsRight {
+  flex: 1;
+}
+
+.contactForm {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.formRow {
+  display: flex;
+  gap: 16px;
+}
+
+.formRow:first-child {
+  flex-direction: row;
+}
+
+.formRow:nth-child(2) {
+  flex-direction: column;
+}
+
+.formRow:last-child {
+  justify-content: center;
+}
+
+.formInput {
+  flex: 1;
+  padding: 16px 20px;
+  background: transparent;
+  border: 1px solid #F1F1F1;
+  color: #F1F1F1;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.formInput::placeholder {
+  color: #F1F1F1;
+}
+
+.formInput:focus {
+  border-color: #FF8311;
+  box-shadow: 0 0 0 2px rgba(255, 131, 17, 0.2);
+}
+
+.formTextarea {
+  width: 100%;
+  padding: 16px 20px;
+  background: transparent;
+  border: 1px solid #F1F1F1;
+  color: #F1F1F1;
+  font-size: 16px;
+  font-family: inherit;
+  resize: none;
+  height: 120px;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.formTextarea::placeholder {
+  color: #F1F1F1;
+}
+
+.formTextarea:focus {
+  border-color: #FF8311;
+  box-shadow: 0 0 0 2px rgba(255, 131, 17, 0.2);
+}
+
+.submitButton {
+  min-width: 200px;
+}
+
+@media (max-width: 1024px) {
+  .contactUsContent {
+    gap: 40px;
+  }
+  
+  .contactUsHeader h2 {
+    font-size: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .contactUs {
+    padding: 60px 0;
+  }
+  
+  .contactUsHeader {
+    margin-bottom: 40px;
+  }
+  
+  .contactUsHeader h2 {
+    font-size: 32px;
+  }
+  
+  .contactUsContent {
+    flex-direction: column;
+    gap: 40px;
+  }
+  
+  .contactUsLeft p {
+    font-size: 16px;
+  }
+  
+  .formRow:first-child {
+    flex-direction: column;
+  }
+  
+  .formInput,
+  .formTextarea {
+    font-size: 14px;
+    padding: 14px 16px;
+  }
+  
+  .submitButton {
+    min-width: 180px;
+  }
+}
+
+@media (max-width: 480px) {
+  .contactUs {
+    padding: 40px 0;
+  }
+  
+  .contactUsHeader h2 {
+    font-size: 28px;
+  }
+  
+  .contactUsLeft p {
+    font-size: 14px;
+  }
+  
+  .formInput,
+  .formTextarea {
+    font-size: 13px;
+    padding: 12px 14px;
+  }
+  
+  .submitButton {
+    min-width: 160px;
+  }
+} 

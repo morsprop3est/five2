@@ -39,7 +39,7 @@ export default function CarPhoto() {
   return (
     <div className={styles.carPhoto} id="carPhoto">
       <div ref={leftWheelRef} className={`${styles.wheel} ${styles.leftWheel}`} id="leftWheel">
-        <Image src="/images/main/wheel.png" alt="wheel" width={80} height={80} />
+        <Image src="/images/main/wheel.png" alt="wheel" width={80} height={80} priority />
       </div>
       <Image
         src="/images/main/porsche-main-image.png"
@@ -48,9 +48,10 @@ export default function CarPhoto() {
         height={300}
         className={styles.carImg}
         id="carImage"
+        priority
       />
       <div ref={rightWheelRef} className={`${styles.wheel} ${styles.rightWheel}`} id="rightWheel">
-        <Image src="/images/main/wheel.png" alt="wheel" width={80} height={80} />
+        <Image src="/images/main/wheel.png" alt="wheel" width={80} height={80} priority />
       </div>
     </div>
   );

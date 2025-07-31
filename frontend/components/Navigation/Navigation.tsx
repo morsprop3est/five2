@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useAuth } from "../../context/AuthContext";
 import { useTheme } from "../../context/ThemeContext";
 import styles from "./Navigation.module.scss";
+import Button from "../Button/Button";
 
 const Navigation: React.FC = () => {
   const { user, login, logout, isAuthenticated } = useAuth();
@@ -55,17 +56,22 @@ const Navigation: React.FC = () => {
               </button>
             </div>
           ) : (
-            <button 
-              className={styles.loginButton}
-              onClick={handleLogin}
-            >
-              <img 
-                src="/icons/common/google.svg" 
-                alt="Google" 
-                className={styles.googleIcon}
-              />
-              Увійти через Google
-            </button>
+            <>
+              <Button 
+                variant="primary" 
+                size="medium"
+                waveEffect={true}
+                onClick={handleLogin}
+                className={styles.waveLoginButton}
+              >
+                <img 
+                  src="/icons/common/google.svg" 
+                  alt="Google" 
+                  style={{ width: '16px', height: '16px', marginRight: '6px' }}
+                />
+                Увійти через Google
+              </Button>
+            </>
           )}
         </div>
       </div>

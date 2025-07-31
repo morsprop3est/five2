@@ -1,0 +1,156 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 8px;
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  outline: none;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.button:not(:disabled):hover {
+  transform: translateY(-2px);
+  transition: all 0.3s ease;
+}
+
+.button:not(:disabled):active {
+  transform: translateY(0);
+}
+
+.waveButton {
+  background: transparent;
+}
+
+.wave {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  opacity: 0;
+  z-index: 1;
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  color: inherit;
+}
+
+.primary {
+  background: #FF8311;
+  color: #F1F1F1;
+}
+
+.primary .wave {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.primary:hover {
+  background: #FF8311;
+}
+
+.secondary {
+  background: #353535;
+  color: #F1F1F1;
+}
+
+.secondary .wave {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.secondary:hover {
+  background: #353535;
+}
+
+.outline {
+  background: transparent;
+  color: #FF8311;
+  border: 2px solid #FF8311;
+  box-shadow: none;
+}
+
+.outline .wave {
+  background: rgba(255, 131, 17, 1);
+}
+
+.outline:hover {
+    color: #F1F1F1;
+    transition: all 0.5s ease;
+}
+
+.small {
+  padding: 8px 16px;
+  font-size: 14px;
+  min-height: 36px;
+}
+
+.medium {
+  padding: 12px 24px;
+  font-size: 16px;
+  min-height: 44px;
+}
+
+.large {
+  padding: 16px 32px;
+  font-size: 18px;
+  min-height: 52px;
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .small {
+    padding: 6px 12px;
+    font-size: 12px;
+    min-height: 32px;
+  }
+  
+  .medium {
+    padding: 10px 20px;
+    font-size: 14px;
+    min-height: 40px;
+  }
+  
+  .large {
+    padding: 14px 28px;
+    font-size: 16px;
+    min-height: 48px;
+  }
+}
+
+@media (max-width: 480px) {
+  .small {
+    padding: 5px 10px;
+    font-size: 11px;
+    min-height: 30px;
+  }
+  
+  .medium {
+    padding: 8px 16px;
+    font-size: 13px;
+    min-height: 36px;
+  }
+  
+  .large {
+    padding: 12px 24px;
+    font-size: 14px;
+    min-height: 44px;
+  }
+} 

@@ -5,7 +5,8 @@ import CarPhoto from "./CarPhoto";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import GoogleAuthButton from "../GoogleAuthButton/GoogleAuthButton";
+import Button from "../Button/Button";
+import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -43,16 +44,29 @@ export default function Main() {
               height="100%"
               fill="#FF8311" 
               mask="url(#text-mask)"
-              rx="16"
+              rx="5"
             />
           </svg>
         </span>
       </h1>
       <p className={styles.text}>Наш сервіс надає вам можливість зручного пошуку автомобілів на різних європейських веб-сайтах продажу автомобілів. Ми спростимо процес пошуку доступних автомобілів, щоб ви могли знайти те, що вам потрібно.</p>
       <div className={styles.authButtons}>
-        <GoogleAuthButton className={styles.googleBtn}>
+        <Button 
+          variant="secondary" 
+          size="medium"
+          waveEffect={true}
+          className={styles.googleBtn}
+          onClick={() => console.log("Почати пошук")}
+        >
+          <Image 
+            src="/icons/common/google.svg" 
+            alt="Google" 
+            width={20} 
+            height={20} 
+            style={{ marginRight: '8px' }}
+          />
           Увійти через Google
-        </GoogleAuthButton>
+        </Button>
       </div>
       <div className={styles.photoWrapper}>
         <CarPhoto />

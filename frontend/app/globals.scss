@@ -15,39 +15,39 @@ html, body {
 }
 
 :root {
-  --background-primary: #ffffff;
-  --background-secondary: #f8f9fa;
-  --background-tertiary: #e9ecef;
-  --text-primary: #212529;
-  --text-secondary: #6c757d;
-  --border-color: #dee2e6;
-  --border-color-hover: #adb5bd;
-  --primary-color: #007bff;
-  --primary-color-hover: #0056b3;
-  --primary-color-light: #e3f2fd;
-  --error-color: #dc3545;
-  --error-background: #f8d7da;
-  --error-text: #721c24;
-  --error-border: #f5c6cb;
-  --success-color: #28a745;
+  --background-primary: #F1F1F1;
+  --background-secondary: #F1F1F1;
+  --background-tertiary: #F1F1F1;
+  --text-primary: #353535;
+  --text-secondary: #353535;
+  --border-color: #353535;
+  --border-color-hover: #353535;
+  --primary-color: #FF8311;
+  --primary-color-hover: #FF8311;
+  --primary-color-light: #FF8311;
+  --error-color: #FF8311;
+  --error-background: #F1F1F1;
+  --error-text: #353535;
+  --error-border: #353535;
+  --success-color: #FF8311;
 }
 
 [data-theme="dark"] {
-  --background-primary: #1a1a1a;
-  --background-secondary: #2d2d2d;
-  --background-tertiary: #404040;
-  --text-primary: #ffffff;
-  --text-secondary: #b0b0b0;
-  --border-color: #404040;
-  --border-color-hover: #606060;
-  --primary-color: #4dabf7;
-  --primary-color-hover: #339af0;
-  --primary-color-light: #1a3a4a;
-  --error-color: #ff6b6b;
-  --error-background: #3d1f1f;
-  --error-text: #ff8a8a;
-  --error-border: #5a2a2a;
-  --success-color: #51cf66;
+  --background-primary: #353535;
+  --background-secondary: #353535;
+  --background-tertiary: #353535;
+  --text-primary: #F1F1F1;
+  --text-secondary: #F1F1F1;
+  --border-color: #F1F1F1;
+  --border-color-hover: #F1F1F1;
+  --primary-color: #FF8311;
+  --primary-color-hover: #FF8311;
+  --primary-color-light: #FF8311;
+  --error-color: #FF8311;
+  --error-background: #353535;
+  --error-text: #F1F1F1;
+  --error-border: #F1F1F1;
+  --success-color: #FF8311;
 }
 
 body {
@@ -59,4 +59,25 @@ body {
 
 *, *::before, *::after {
   box-sizing: border-box;
+}
+
+.container {
+  width: 100%;
+  max-width: 1024px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+@media (max-width: 1024px) {
+  .container {
+    max-width: 600px;
+    padding: 0 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .container {
+    max-width: 100%;
+    padding: 0 20px;
+  }
 }

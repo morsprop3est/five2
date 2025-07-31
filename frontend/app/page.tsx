@@ -7,6 +7,8 @@ import styles from "./page.module.scss";
 import Navigation from "../components/Navigation/Navigation";
 import Main from "../components/Main/Main";
 import HowItWorks from "../components/HowItWorks/HowItWorks";
+import Websites from "../components/Websites/Websites";
+import ContactUs from "../components/ContactUs/ContactUs";
 
 export default function Home() {
   const { isAuthenticated, isLoading } = useAuth();
@@ -42,6 +44,8 @@ export default function Home() {
       <Navigation />
       <Main />
       <HowItWorks />
+      <Websites />
+      <ContactUs />
     </div>
   );
 }
