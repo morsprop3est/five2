@@ -6,7 +6,6 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import GoogleAuthButton from "../GoogleAuthButton/GoogleAuthButton";
-import GitHubAuthButton from "../GitHubAuthButton/GitHubAuthButton";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -51,9 +50,6 @@ export default function Main() {
       </h1>
       <p className={styles.text}>Наш сервіс надає вам можливість зручного пошуку автомобілів на різних європейських веб-сайтах продажу автомобілів. Ми спростимо процес пошуку доступних автомобілів, щоб ви могли знайти те, що вам потрібно.</p>
       <div className={styles.authButtons}>
-        <GitHubAuthButton className={styles.githubBtn}>
-          Увійти через GitHub
-        </GitHubAuthButton>
         <GoogleAuthButton className={styles.googleBtn}>
           Увійти через Google
         </GoogleAuthButton>
